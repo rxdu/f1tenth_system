@@ -2,7 +2,7 @@ joy:
   ros__parameters:
     device_name: /dev/input/js0
     deadzone: 0.01
-    autorepeat_rate: 20.0
+    autorepeat_rate: 50.0
     coalesce_interval: 0.01
 
 joy_teleop:
@@ -21,11 +21,11 @@ joy_teleop:
           scale: 0.0
           offset: 0.0
 
-    human_control:
+    manual_control:
       type: topic
       interface_type: ackermann_msgs/msg/AckermannDriveStamped
       topic_name: teleop
-      deadman_buttons: [4]
+      deadman_buttons: [7]
       axis_mappings:
         drive-speed:
           axis: 1
@@ -40,7 +40,7 @@ joy_teleop:
       type: topic
       interface_type: std_msgs/msg/Int8
       topic_name: /dev/null
-      deadman_buttons: [5]
+      deadman_buttons: [6]
       message_value:
         data:
           value: 0

@@ -30,7 +30,7 @@ from launch_xml.launch_description_sources import XMLLaunchDescriptionSource
 from ament_index_python.packages import get_package_share_directory
 import os
 
-def generate_launch_description():
+def generate_launch_description():    
     joy_teleop_config = os.path.join(
         get_package_share_directory('f1tenth_stack'),
         'config',
@@ -62,9 +62,10 @@ def generate_launch_description():
 
     ld = LaunchDescription([joy_la, vesc_la, mux_la])
 
+    # joystick
     joy_node = Node(
-        package='joy',
-        executable='joy_node',
+        package='joy_linux',
+        executable='joy_linux_node',
         name='joy',
         parameters=[LaunchConfiguration('joy_config')]
     )
@@ -73,6 +74,14 @@ def generate_launch_description():
         executable='joy_teleop',
         name='joy_teleop',
         parameters=[LaunchConfiguration('joy_config')]
+    )
+   
+    # vesc node
+    vesc_driver_node = Node(
+        package='vesc_driver',
+        executable='vesc_driver_can_node',
+        name='vesc_driver_node',
+        parameters=[LaunchConfiguration('vesc_config')]
     )
     ackermann_to_vesc_node = Node(
         package='vesc_ackermann',
@@ -86,12 +95,8 @@ def generate_launch_description():
         name='vesc_to_odom_node',
         parameters=[LaunchConfiguration('vesc_config')]
     )
-    vesc_driver_node = Node(
-        package='vesc_driver',
-        executable='vesc_driver_node',
-        name='vesc_driver_node',
-        parameters=[LaunchConfiguration('vesc_config')]
-    )
+
+    # throttle interpolator and cmd mux
     throttle_interpolator_node = Node(
         package='f1tenth_stack',
         executable='throttle_interpolator',
@@ -109,10 +114,10 @@ def generate_launch_description():
     # finalize
     ld.add_action(joy_node)
     ld.add_action(joy_teleop_node)
-    ld.add_action(ackermann_to_vesc_node)
-    ld.add_action(vesc_to_odom_node)
-    ld.add_action(vesc_driver_node)
+#     ld.add_action(vesc_driver_node)
+#     ld.add_action(ackermann_to_vesc_node)
+#     ld.add_action(vesc_to_odom_node)
     # ld.add_action(throttle_interpolator_node)
-    ld.add_action(ackermann_mux_node)
+#     ld.add_action(ackermann_mux_node)
 
     return ld
