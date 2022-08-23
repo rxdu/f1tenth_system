@@ -108,16 +108,16 @@ def generate_launch_description():
         executable='ackermann_mux',
         name='ackermann_mux',
         parameters=[LaunchConfiguration('mux_config')],
-        remappings=[('ackermann_cmd_out', 'ackermann_drive')]
+        # remappings=[('/ackermann_cmd_out', '/ackermann_cmd')]
     )
 
     # finalize
     ld.add_action(joy_node)
     ld.add_action(joy_teleop_node)
-#     ld.add_action(vesc_driver_node)
-#     ld.add_action(ackermann_to_vesc_node)
-#     ld.add_action(vesc_to_odom_node)
+    ld.add_action(ackermann_mux_node)
+    ld.add_action(vesc_driver_node)
+    ld.add_action(ackermann_to_vesc_node)
+    ld.add_action(vesc_to_odom_node)
     # ld.add_action(throttle_interpolator_node)
-#     ld.add_action(ackermann_mux_node)
 
     return ld
