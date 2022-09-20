@@ -22,6 +22,7 @@
     position_max: 0.0
     servo_min: 0.15
     servo_max: 0.85
+    enable_cmd_smoother: true
 
 # No longer needed, all parameters are shared
 # vesc_driver:

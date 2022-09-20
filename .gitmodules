@@ -1,6 +1,6 @@
 [submodule "vesc"]
 	path = vesc
-	url = https://github.com/rxdu/vesc_ros.git
+	url = git@github.com:rxdu/vesc_ros.git
 	branch = humble
 [submodule "ackermann_mux"]
 	path = ackermann_mux
